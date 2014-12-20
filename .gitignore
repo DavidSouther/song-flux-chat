@@ -1,0 +1,19 @@
+# Dependency directory
+node_modules/
+
+# Build Artifacts, Compiled binary addons (http://nodejs.org/api/addons.html)
+build/
+coverage/
+www/
+
+# Environment settings (should come from another repo https://github.com/RupertJS/rupert/wiki/Cookbook:-Providing-Environment-Variables-and-Secure-Files)
+
+# Grunt intermediate storage (http://gruntjs.com/creating-plugins#storing-task-files)
+.grunt/
+
+# Users Environment Variables
+.lock-wscript
+
+# Cordova prepared files
+plugins/
+platform/

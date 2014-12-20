@@ -1,0 +1,16 @@
+{
+  "stassets": {
+    "verbose": true,
+    "root": "./src/client",
+    "vendors": {
+      "prefix": [],
+      "js": [],
+      "css": []
+    }
+  },
+  "tls": false,
+  "routing": [
+    "./src/server/allow.coffee",
+    "./src/server/**/route.coffee"
+  ]
+}
