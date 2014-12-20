@@ -1,35 +1,38 @@
 describe 'Dispatcher', ->
   beforeEach module 'song.dispatcher'
 
-  SUT = null
-  beforeEach inject ($injector)->
-    SUT = $injector.get('dispatcher')
+  sut = null
 
-  it 'exists', ->
-    should.exist SUT
+  describe 'factory', ->
+    beforeEach inject ($injector)->
+      sut = $injector.get('dispatcher')
 
-  it 'can return an dispatcher scoped to a module', ->
-    SUT.should.have.property 'get'
-    SUT.get.should.be.instanceof Function
+    it 'exists and has a good API', ->
+      should.exist sut
+      sut.should.have.property 'get'
+      sut.get.should.be.instanceof Function
 
-    should.exist SUT.get('song.dispatcher')
-    sut1 = SUT.get('song.dispatcher')
-    sut2 = SUT.get('song.dispatcher')
-    sut1.should.equal sut2
+    it 'fails on getting dispatcher for unloaded module', ->
+      (-> sut.get('undefined.module')).should.throw()
 
-  it 'fails on getting dispatcher for unloaded module', ->
-    sut = -> SUT.get('undefined.module')
-    sut.should.throw()
+  describe 'instance', ->
+    beforeEach inject ($injector)->
+      sut = $injector.get('dispatcher').get('song.dispatcher')
+      sutb = $injector.get('dispatcher').get('song.dispatcher')
 
-  it 'can register actions', ->
-    sut = SUT.get('song.dispatcher')
-    class TestAction
-      constructor: ->
-        this.data = 123
-    testData = null
-    sut.register TestAction, (testAction)->
-      testData = testAction.data
+    it 'can return an dispatcher scoped to a module', ->
+      should.exist sut
+      sut.should.equal sutb
 
-    sut.dispatch new TestAction()
+    it 'can register and dispatch actions', ->
+      class TestAction
+        constructor: ->
+          this.data = 123
 
-    testData.should.equal 123
+      testData = null
+      sut.register TestAction, (testAction)->
+        testData = testAction.data
+
+      sut.dispatch new TestAction()
+
+      testData.should.equal 123
