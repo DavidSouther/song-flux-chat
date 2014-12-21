@@ -37,8 +37,7 @@ describe 'MessageDirective', ->
 
   describe 'Controller', ->
     beforeEach inject ($controller)->
-      Ctor = $controller 'MessageSectionController', {}, true
-      sut = Ctor()
+      sut = renderElement('chat-messages').isolateScope().state
       mockThreadStore.listener()
 
     it 'loads the current thread', ->

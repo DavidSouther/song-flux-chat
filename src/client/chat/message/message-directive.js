@@ -17,7 +17,7 @@ MessageSectionController.prototype.update = function(){
 
 function MessageSectionDirective(){
   this.templateUrl = 'chat/message';
-  this.controller = 'MessageSectionController';
+  this.controller = MessageSectionController;
   this.controllerAs = 'state';
   this.scope = {};
 }
@@ -31,6 +31,5 @@ angular.module('song.chat.message.directive', [
   'song.chat.message.item.directive',
   'chat.message.template'
 ])
-.controller('MessageSectionController', MessageSectionController)
 .directive('chatMessages', MessageSectionDirective.factory)
 ;

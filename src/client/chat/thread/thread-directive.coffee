@@ -13,7 +13,7 @@ SongThreadDirectiveController.$inject = [
 class SongChatThreadDirective
   constructor: ->
     @templateUrl = 'chat/thread'
-    @controller = SongThreadDirectiveController.name
+    @controller = SongThreadDirectiveController
     @controllerAs = 'state'
     @bindToController = yes
     @scope = {}
@@ -26,5 +26,4 @@ angular.module('song.chat.thread.directive', [
   'song.chat.thread.item.directive'
   'chat.thread.template'
 ])
-.controller(SongThreadDirectiveController.name, SongThreadDirectiveController)
 .directive('chatThreads', SongChatThreadDirective.factory)

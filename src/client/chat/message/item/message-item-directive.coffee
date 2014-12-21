@@ -1,17 +1,13 @@
 class MessageItemController
-  constructor: ($err)->
-    unless @key? and @message?
-      msg = 'ThreadItemController must be constructed with bound scope.'
-      $err new Error msg
+  constructor: ()->
 
 MessageItemController.$inject = [
-  '$exceptionHandler'
 ]
 
 class MessageItemDirective
   constructor: ->
     @templateUrl = 'chat/message/item'
-    @controller = MessageItemController.name
+    @controller = MessageItemController
     @controllerAs = 'state'
     @bindToController = yes
     @scope =
@@ -23,5 +19,4 @@ MessageItemDirective.factory = -> new MessageItemDirective()
 angular.module('song.chat.message.item.directive', [
   'chat.message.item.template'
 ])
-.controller(MessageItemController.name, MessageItemController)
 .directive('messageItem', MessageItemDirective.factory)

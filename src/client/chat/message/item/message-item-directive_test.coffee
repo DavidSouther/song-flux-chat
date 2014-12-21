@@ -11,16 +11,18 @@ describe 'MessageItemDirective', ->
   sut = null
   beforeEach module 'song.chat.message.item.directive'
 
+  render = ->
+    renderElement 'message-item',
+      {message}, # Data
+      {key: 'm_4', message: 'message'} # Attributes to bind with
+
   describe 'Controller', ->
     beforeEach inject ($controller)->
-      Ctor = $controller 'MessageItemController', {}, true
-      sut = Ctor()
+      sut = render().isolateScope().state
 
   describe 'render', ->
     beforeEach ->
-      sut = renderElement 'message-item',
-        {message}, # Data
-        {key: 'm_4', message: 'message'} # Attributes to bind with
+      sut = render()
 
     it 'show a message', ->
       sut.find('h5').text().should.equal 'Bill'

@@ -1,8 +1,5 @@
 class ThreadItemController
   constructor: (dispatcher, @Click, $err)->
-    unless @key? and @thread? and @currentThreadId?
-      msg = 'ThreadItemController must be constructed with bound scope.'
-      return $err new Error msg
     @dispatcher = dispatcher.get('song.chat')
     @lastMessage = @thread.lastMessage
 
@@ -18,7 +15,7 @@ ThreadItemController.$inject = [
 class ThreadItemDirective
   constructor: ->
     @templateUrl = 'chat/thread/item'
-    @controller = ThreadItemController.name
+    @controller = ThreadItemController
     @controllerAs = 'state'
     @bindToController = yes
     @scope =
@@ -34,5 +31,4 @@ angular.module('song.chat.thread.item.directive', [
   'song.chat.actions'
   'chat.thread.item.template'
 ])
-.controller ThreadItemController.name, ThreadItemController
 .directive 'threadItem', ThreadItemDirective.factory

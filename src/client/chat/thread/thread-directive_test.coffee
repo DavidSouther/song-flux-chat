@@ -38,10 +38,8 @@ describe 'ThreadDirective', ->
 
   describe 'Controller', ->
     beforeEach inject ($controller)->
-      Ctor = $controller('SongThreadDirectiveController', {
-        ThreadStore: mockStore
-      }, true)
-      sut = Ctor()
+      $el = renderElement 'chat-threads'
+      sut = $el.isolateScope().state
 
     it 'loads thread data on update', ->
       updateListener()

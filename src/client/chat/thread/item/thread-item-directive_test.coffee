@@ -23,12 +23,10 @@ describe 'ThreadItemDirective', ->
 
   describe 'ThreadItemController', ->
     beforeEach inject ($controller)->
-      Ctor = $controller('ThreadItemController', {}, true)
-      Ctor.instance.thread = thread
-      Ctor.instance.currentThreadId = 't_1'
-      Ctor.instance.key = 't_1'
-
-      sut = Ctor()
+      $el = renderElement 'thread-item',
+        { thread: thread }, # data
+        { thread: 'thread', key: 't_1', 'current-thread-id': 't_1' } #HTML Attrs
+      sut = $el.isolateScope().state
 
     it 'manages a thread', ->
       sut.key.should.equal 't_1'
@@ -41,16 +39,6 @@ describe 'ThreadItemDirective', ->
         clickedId = click.threadID
       sut.clickThread()
       clickedId.should.equal 't_1'
-
-    it 'throws exception without bound scope', inject (
-      $controller,
-      $exceptionHandler
-    )->
-      Ctor = $controller('ThreadItemController', {}, true)
-
-      sut = Ctor()
-
-      $exceptionHandler.errors.length.should.equal 1
 
   describe 'rendering', ->
     beforeEach ->
