@@ -7,12 +7,13 @@ MessageStoreFactory.$inject = [
   '$http',
   'dispatcher',
   'CreateMessageAction',
+  'ReceiveMessagesAction',
   'LoadMessagesAction'
 ];
-function MessageStoreFactory( $http, dispatcher, Create, Load ){
+function MessageStoreFactory( $http, dispatcher, Create, Receive, Load ){
   function MessageStore($http, dispatcher){
     this.messages = [];
-    this.dispatcher = dispatcher.get('song.chat.message');
+    this.dispatcher = dispatcher.get('song.chat');
 
     this._load = function(){return $http.get('/messages');};
 
@@ -27,11 +28,11 @@ function MessageStoreFactory( $http, dispatcher, Create, Load ){
       while ( messages.length ){
         this.dispatcher.dispatch(new Create(messages.shift()));
       }
+      this.dispatcher.dispatch(new Receive(this.messages));
     }.bind(this));
   };
 
   MessageStore.prototype.addMessage = function(createMessageAction){
-
     var msgData = createMessageAction.msgData;
 
     if ( ! msgData ) { return false; }
