@@ -5,18 +5,17 @@ angular.module('song.chat.thread.service', [
 
 ThreadStoreFactory.$inject = [
   'dispatcher',
-  'ReceiveMessagesAction',
-  'ClickThreadAction',
+  'Actions',
   '$log'
 ];
-function ThreadStoreFactory(dispatcher, Receive, Click, $log){
+function ThreadStoreFactory(dispatcher, Actions, $log){
   var _currentID = '';
   var _threads = {};
 
   function ThreadStore(){
     this.dispatcher = dispatcher.get('song.chat');
-    this.dispatcher.register(Receive, this.addMessages.bind(this));
-    this.dispatcher.register(Click, this.click.bind(this));
+    this.dispatcher.register( Actions.Receive, this.addMessages.bind(this) );
+    this.dispatcher.register( Actions.Click, this.click.bind(this) );
   }
 
   ThreadStore.prototype.addMessages = function(receive){

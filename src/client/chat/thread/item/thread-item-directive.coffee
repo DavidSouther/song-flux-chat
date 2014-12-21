@@ -1,14 +1,14 @@
 class ThreadItemController
-  constructor: (dispatcher, @Click, $err)->
+  constructor: (dispatcher, @Actions, $err)->
     @dispatcher = dispatcher.get('song.chat')
     @lastMessage = @thread.lastMessage
 
   clickThread: ->
-    @dispatcher.dispatch(new @Click(@key))
+    @dispatcher.dispatch(new @Actions.Click(@key))
 
 ThreadItemController.$inject = [
   'dispatcher'
-  'ClickThreadAction'
+  'Actions'
   '$exceptionHandler'
 ]
 

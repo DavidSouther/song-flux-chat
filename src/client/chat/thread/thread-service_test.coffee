@@ -23,19 +23,19 @@ describe 'Thread Store', ->
   )
 
   sut = null
-  Receive = null
+  Actions = null
   beforeEach inject ($injector)->
     sut = $injector.get('ThreadStore')
-    Receive = $injector.get('ReceiveMessagesAction')
+    Actions = $injector.get('Actions')
 
   it 'initializes an array of messages', ->
-    receive = new Receive(messages)
+    receive = new Actions.Receive(messages)
 
     sut.addMessages(receive)
 
     sut.getCurrentID().should.equal('t_2')
 
   it 'returns the current thread', ->
-    receive = new Receive(messages)
+    receive = new Actions.Receive(messages)
     sut.addMessages(receive)
     sut.getCurrent().id.should.equal('t_2')

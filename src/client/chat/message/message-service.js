@@ -8,18 +8,14 @@ MessageStoreFactory.$inject = [
   '$http',
   'dispatcher',
   'ThreadStore',
-  'CreateMessageAction',
-  'ReceiveMessagesAction',
-  'LoadMessagesAction',
+  'Actions',
   '$log'
 ];
 function MessageStoreFactory(
   $http,
   dispatcher,
   ThreadStore,
-  Create,
-  Receive,
-  Load,
+  Actions,
   $log
 ){
   function MessageStore($http, dispatcher){
@@ -28,23 +24,24 @@ function MessageStoreFactory(
 
     this._load = function(){return $http.get('/messages');};
 
-    this.dispatcher.register(Create, this.addMessage.bind(this));
-    this.dispatcher.register(Load, this.loadMessages.bind(this));
+    this.dispatcher.register( Actions.Create, this.addMessage.bind(this) );
+    this.dispatcher.register( Actions.Load, this.loadMessages.bind(this) );
 
-    this.dispatcher.dispatch(new Load());
+    this.dispatcher.dispatch(new Actions.Load());
   }
 
   MessageStore.prototype.loadMessages = function(){
     this._load().success(function(messages){
       while ( messages.length ){
-        this.dispatcher.dispatch(new Create(messages.shift()));
+        var create = new Actions.Create(messages.shift());
+        this.dispatcher.dispatch(create);
       }
-      this.dispatcher.dispatch(new Receive(this.messages));
+      this.dispatcher.dispatch(new Actions.Receive(this.messages));
     }.bind(this));
   };
 
-  MessageStore.prototype.addMessage = function(createMessageAction){
-    var msgData = createMessageAction.msgData;
+  MessageStore.prototype.addMessage = function(create){
+    var msgData = create.msgData;
 
     if ( ! msgData ) { return false; }
     if ( ! angular.isDate(msgData.date) ){
