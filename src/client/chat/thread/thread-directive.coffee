@@ -1,6 +1,5 @@
 class SongThreadDirectiveController
-  constructor: (@_threadStore, dispatcher)->
-    @dispatcher = dispatcher.get('song.chat')
+  constructor: (@_threadStore)->
     @_threadStore.addUpdateListener @update.bind @
 
   update: ->
@@ -9,14 +8,14 @@ class SongThreadDirectiveController
 
 SongThreadDirectiveController.$inject = [
   'ThreadStore'
-  'dispatcher'
 ]
 
 class SongChatThreadDirective
-  constructor: (threadStore, dispatcher)->
+  constructor: ->
     @templateUrl = 'chat/thread'
-    @controller = SongThreadDirectiveController
+    @controller = SongThreadDirectiveController.name
     @controllerAs = 'state'
+    @bindToController = yes
     @scope = {}
 
 SongChatThreadDirective.factory = ->
@@ -26,4 +25,6 @@ angular.module('song.chat.thread.directive', [
   'song.chat.thread.service'
   'song.chat.thread.item.directive'
   'chat.thread.template'
-]).directive 'chatThreads', SongChatThreadDirective.factory
+])
+.controller(SongThreadDirectiveController.name, SongThreadDirectiveController)
+.directive('chatThreads', SongChatThreadDirective.factory)

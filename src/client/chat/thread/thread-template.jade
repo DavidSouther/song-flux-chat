@@ -6,7 +6,5 @@
       ng-repeat="thread in state.threads"
       key="{{ thread.id }}"
       thread="thread"
-      currentThreadID="{{ state.currentThreadID }}"
+      current-thread-id="{{ state.currentThreadID }}"
     )
-
-  pre {{ state | json}}

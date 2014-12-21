@@ -13,7 +13,6 @@ messages = [
   authorName: 'Bill',
   text: 'Hey Dave, want to get a beer after the conference?',
   timestamp: Date.now() - 69999
-
 ]
 messages.forEach (_)->_.date = new Date(_.timestamp)
 

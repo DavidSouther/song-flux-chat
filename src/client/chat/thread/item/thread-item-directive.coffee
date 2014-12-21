@@ -1,6 +1,6 @@
 class ThreadItemController
   constructor: (dispatcher, @Click, $err)->
-    unless @key? and @thread? and @currentThreadID?
+    unless @key? and @thread? and @currentThreadId?
       msg = 'ThreadItemController must be constructed with bound scope.'
       return $err new Error msg
     @dispatcher = dispatcher.get('song.chat')
@@ -24,7 +24,7 @@ class ThreadItemDirective
     @scope =
       key: '@'
       thread: '='
-      currentThreadID: '@'
+      currentThreadId: '@'
 
 ThreadItemDirective.factory = ->
   new ThreadItemDirective

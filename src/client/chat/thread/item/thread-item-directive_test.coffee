@@ -25,14 +25,14 @@ describe 'ThreadItemDirective', ->
     beforeEach inject ($controller)->
       Ctor = $controller('ThreadItemController', {}, true)
       Ctor.instance.thread = thread
-      Ctor.instance.currentThreadID = 't_1'
+      Ctor.instance.currentThreadId = 't_1'
       Ctor.instance.key = 't_1'
 
       sut = Ctor()
 
     it 'manages a thread', ->
       sut.key.should.equal 't_1'
-      sut.currentThreadID.should.equal 't_1'
+      sut.currentThreadId.should.equal 't_1'
       sut.lastMessage.id.should.equal lastMessage.id
 
     it 'generates click actions', inject (dispatcher, ClickThreadAction)->
@@ -56,7 +56,7 @@ describe 'ThreadItemDirective', ->
     beforeEach ->
       sut = renderElement 'thread-item',
         { thread: thread, key: 't_1', currentThreadID: 't_1' },
-        { thread: 'thread', key: 'key', currentThreadID: 'currentThreadID' }
+        { thread: 'thread', key: 'key', 'current-thread-id': 'currentThreadID' }
 
     it 'shows thread details', ->
       name = sut[0].querySelector('.thread-name').innerText
