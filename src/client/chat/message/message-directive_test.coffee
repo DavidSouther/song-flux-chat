@@ -51,5 +51,6 @@ describe 'MessageDirective', ->
       mockMessageStore.listener()
       sut.$scope.$digest()
 
-    it 'prints the thread name', ->
+    it 'prints the thread', ->
       sut.find('h3').text().should.equal 'Dave and Bill'
+      sut.find('message-item').length.should.equal 2

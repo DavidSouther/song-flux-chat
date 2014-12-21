@@ -1,7 +1,7 @@
 .message-section
   h3.message-thread-heading {{ this.state.thread.name }}
   ul.message-list
-    message-list-item(
+    message-item(
       ng-repeat="message in state.messages"
       key="{{message.id}}"
       message="message"

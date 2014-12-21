@@ -1,0 +1,4 @@
+li.message-list-item
+  h5.message-author-name {{ state.message.authorName }}
+  .message-time {{ state.message.date | date }}
+  .message-text {{ state.message.text }}

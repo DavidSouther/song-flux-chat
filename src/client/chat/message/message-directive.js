@@ -28,6 +28,7 @@ MessageSectionDirective.factory = function(){
 angular.module('song.chat.message.directive', [
   'song.chat.message.service',
   'song.chat.thread.service',
+  'song.chat.message.item.directive',
   'chat.message.template'
 ])
 .controller('MessageSectionController', MessageSectionController)
