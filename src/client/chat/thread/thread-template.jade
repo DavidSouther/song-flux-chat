@@ -1,6 +1,6 @@
 .thread-section
-  .thread-count(ng-show="state.unreadCount > 0")
-    span Unread threads: {{ state.unreadCount }}
+  .thread-count
+    span Unread threads: {{ state.unreadCount || 0 }}
   ul.thread-list
     thread-item(
       ng-repeat="thread in state.threads"
