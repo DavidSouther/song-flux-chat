@@ -69,6 +69,10 @@ function ThreadStoreFactory(dispatcher, Receive, Click){
     return _currentID;
   };
 
+  ThreadStore.prototype.getCurrent = function(){
+    return _threads[_currentID];
+  };
+
   var listener = function(){};
   ThreadStore.prototype.addUpdateListener = function(callback){
     listener = callback;

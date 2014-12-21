@@ -34,3 +34,8 @@ describe 'Thread Store', ->
     sut.addMessages(receive)
 
     sut.getCurrentID().should.equal('t_2')
+
+  it 'returns the current thread', ->
+    receive = new Receive(messages)
+    sut.addMessages(receive)
+    sut.getCurrent().id.should.equal('t_2')
