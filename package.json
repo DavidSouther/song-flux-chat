@@ -9,8 +9,7 @@
   },
   "dependencies": {
     "rupert": "^0.2.6",
-    "rupert-config-angular": "^0.0.5",
-    "rupert-config-bootstrap": "^0.0.2"
+    "rupert-config-angular": "^0.0.5"
   },
   "devDependencies": {
     "grunt": "^0.4.5",
