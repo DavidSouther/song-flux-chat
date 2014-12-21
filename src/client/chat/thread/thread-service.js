@@ -6,9 +6,10 @@ angular.module('song.chat.thread.service', [
 ThreadStoreFactory.$inject = [
   'dispatcher',
   'ReceiveMessagesAction',
-  'ClickThreadAction'
+  'ClickThreadAction',
+  '$log'
 ];
-function ThreadStoreFactory(dispatcher, Receive, Click){
+function ThreadStoreFactory(dispatcher, Receive, Click, $log){
   var _currentID = '';
   var _threads = {};
 
@@ -73,12 +74,18 @@ function ThreadStoreFactory(dispatcher, Receive, Click){
     return _threads[_currentID];
   };
 
-  var listener = function(){};
+  var listeners = [];
   ThreadStore.prototype.addUpdateListener = function(callback){
-    listener = callback;
+    listeners.push(callback);
   };
   ThreadStore.prototype.emitUpdate = function(){
-    listener();
+    for(var i = 0; i < listeners.length ; i++){
+      try {
+        listeners[i]();
+      } catch (e) {
+        $log.warn(e);
+      }
+    }
   };
 
   return new ThreadStore();

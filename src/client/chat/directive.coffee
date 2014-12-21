@@ -7,5 +7,6 @@ SongChatDirective.factory = ->
 
 angular.module('song.chat.directive', [
   'song.chat.thread.directive',
+  'song.chat.message.directive',
   'chat.template'
 ]).directive 'songChat', SongChatDirective.factory

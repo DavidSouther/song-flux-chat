@@ -1,16 +1,27 @@
 angular.module('song.chat.message.service', [
   'song.dispatcher',
-  'song.chat.actions'
+  'song.chat.actions',
+  'song.chat.thread.service'
 ]).factory('MessageStore', MessageStoreFactory);
 
 MessageStoreFactory.$inject = [
   '$http',
   'dispatcher',
+  'ThreadStore',
   'CreateMessageAction',
   'ReceiveMessagesAction',
-  'LoadMessagesAction'
+  'LoadMessagesAction',
+  '$log'
 ];
-function MessageStoreFactory( $http, dispatcher, Create, Receive, Load ){
+function MessageStoreFactory(
+  $http,
+  dispatcher,
+  ThreadStore,
+  Create,
+  Receive,
+  Load,
+  $log
+){
   function MessageStore($http, dispatcher){
     this.messages = [];
     this.dispatcher = dispatcher.get('song.chat');
@@ -41,6 +52,27 @@ function MessageStoreFactory( $http, dispatcher, Create, Receive, Load ){
     }
     this.messages.push(msgData);
     return true;
+  };
+
+  MessageStore.prototype.getAllForCurrentThread = function(){
+    var currentThreadID = ThreadStore.getCurrentID();
+    return this.messages.filter(function(message){
+      return message.threadID === currentThreadID;
+    });
+  };
+
+  var listeners = [];
+  MessageStore.prototype.addUpdateListener = function(callback){
+    listeners.push(callback);
+  };
+  MessageStore.prototype.emitUpdate = function(){
+    for(var i = 0; i < listeners.length ; i++){
+      try {
+        listeners[i]();
+      } catch (e) {
+        $log.warn(e);
+      }
+    }
   };
 
   return new MessageStore($http, dispatcher);

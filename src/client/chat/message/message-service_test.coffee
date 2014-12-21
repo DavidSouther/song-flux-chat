@@ -1,4 +1,6 @@
+
 describe 'Chat Messages', ->
+  sut = null
   beforeEach module(
     'song.chat.message.service'
     'song.chat.message.service.mock'
@@ -10,13 +12,20 @@ describe 'Chat Messages', ->
   $httpBackend = null
   beforeEach inject ($injector)->
     $httpBackend = $injector.get('$httpBackend')
+    sut = $injector.get('MessageStore')
 
-  it 'loads an array of messages', inject (MessageStore)->
+  it 'loads an array of messages', ->
     $httpBackend.expectGET '/messages'
     $httpBackend.flush()
-    MessageStore.messages.length.should.equal 7
+    sut.messages.length.should.equal 7
 
-  it 'parses message timestamps into dates', inject (MessageStore)->
+  it 'parses message timestamps into dates', ->
     $httpBackend.expectGET '/messages'
     $httpBackend.flush()
-    MessageStore.messages[0].date.should.be.instanceof Date
+    sut.messages[0].date.should.be.instanceof Date
+
+  it 'returns all messages in the current thread', ->
+    $httpBackend.expectGET '/messages'
+    $httpBackend.flush()
+    current = sut.getAllForCurrentThread()
+    current.length.should.equal 2
