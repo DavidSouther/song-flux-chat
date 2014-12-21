@@ -16,6 +16,7 @@ describe 'Dispatcher', ->
       (-> sut.get('undefined.module')).should.throw()
 
   describe 'instance', ->
+    sutb = null
     beforeEach inject ($injector)->
       sut = $injector.get('dispatcher').get('song.dispatcher')
       sutb = $injector.get('dispatcher').get('song.dispatcher')
