@@ -3,5 +3,6 @@ li.thread-list-item(
   ng-click="state.clickThread()"
 )
   h5.thread-name {{ state.thread.name }}
-  div.thread-time {{ state.lastMessage.date.toLocaleTimeString() }}
-  div.thread-last-message {{ state.lastMessage.text }}
+  div.thread-time {{ state.thread.lastMessage.date.toLocaleTimeString() }}
+  div.thread-last-message {{ state.thread.lastMessage.text }}
+  pre {{ state | json }}

@@ -75,7 +75,7 @@ function ThreadStoreFactory(dispatcher, Receive, Click){
   };
   ThreadStore.prototype.emitUpdate = function(){
     listener();
-  }
+  };
 
   return new ThreadStore();
 }
