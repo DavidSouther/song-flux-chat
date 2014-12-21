@@ -1,0 +1,12 @@
+.thread-section
+  .thread-count(ng-show="state.unreadCount > 0")
+    span Unread threads: {{ state.unreadCount }}
+  ul.thread-list
+    thread-item(
+      ng-repeat="thread in state.threads"
+      key="{{ thread.id }}"
+      thread="thread"
+      currentThreadID="{{ state.currentThreadID }}"
+    )
+
+  pre {{ state | json}}

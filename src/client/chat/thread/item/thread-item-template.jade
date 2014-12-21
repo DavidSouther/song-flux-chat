@@ -1,0 +1,7 @@
+li.thread-list-item(
+  ng-class="{active: state.thread.id == state.currentThreadID}"
+  ng-click="state.clickThread()"
+)
+  h5.thread-name {{ state.thread.name }}
+  div.thread-time {{ state.lastMessage.date.toLocaleTimeString() }}
+  div.thread-last-message {{ state.lastMessage.text }}

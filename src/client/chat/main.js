@@ -1,1 +1,6 @@
-angular.module('song.chat', []);
+angular.module('song.chat', [
+  'song.chat.message.service',
+  'song.chat.actions'
+])
+.run(function(MessageStore){ })
+;

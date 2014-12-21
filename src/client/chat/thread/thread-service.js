@@ -39,6 +39,7 @@ function ThreadStoreFactory(dispatcher, Receive, Click){
     }
 
     _threads[_currentID].lastMessage.isRead = true;
+    this.emitUpdate();
   };
 
   ThreadStore.prototype.getAllChrono = function(){
@@ -61,11 +62,20 @@ function ThreadStoreFactory(dispatcher, Receive, Click){
   ThreadStore.prototype.click = function(click){
     _currentID = click.threadID;
     _threads[_currentID].lastMessage.isRead = true;
+    this.emitUpdate();
   };
 
   ThreadStore.prototype.getCurrentID = function(){
     return _currentID;
   };
+
+  var listener = function(){};
+  ThreadStore.prototype.addUpdateListener = function(callback){
+    listener = callback;
+  };
+  ThreadStore.prototype.emitUpdate = function(){
+    listener();
+  }
 
   return new ThreadStore();
 }
