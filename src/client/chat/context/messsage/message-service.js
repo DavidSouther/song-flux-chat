@@ -18,7 +18,7 @@ function MessageStoreFactory(
   Actions,
   $log
 ){
-  function MessageStore($http, dispatcher){
+  function MessageStore(){
     this.messages = [];
     this.dispatcher = dispatcher.get('song.chat');
 
@@ -72,5 +72,5 @@ function MessageStoreFactory(
     }
   };
 
-  return new MessageStore($http, dispatcher);
+  return new MessageStore();
 }

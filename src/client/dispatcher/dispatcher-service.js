@@ -1,13 +1,14 @@
 angular.module('song.dispatcher', [
 
 ]).factory('dispatcher', function(){
-  function Dispatcher(){
+  function Dispatcher(id){
+    this.id = 'D_' + id;
     this._callbacks = new WeakMap();
   }
 
   Dispatcher.prototype.nextId = (function(){
     var id = 0;
-    var prefix = 'ID_';
+    var prefix = this.id + 'ID_';
     return function(){
       return prefix + (++id);
     };
@@ -36,13 +37,14 @@ angular.module('song.dispatcher', [
     }
   };
 
+  var dispatcherID = 0;
   var dispatchers = new WeakMap();
 
   return {
     get: function(moduleName){
       var ngModule = angular.module(moduleName);
       if ( !dispatchers.has(ngModule) ) {
-        dispatchers.set(ngModule, new Dispatcher());
+        dispatchers.set(ngModule, new Dispatcher(dispatcherID++));
       }
       return dispatchers.get(ngModule);
     }
