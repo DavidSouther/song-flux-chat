@@ -33,9 +33,13 @@ describe 'ThreadItemDirective', ->
       sut.currentThreadId.should.equal 't_1'
       sut.lastMessage.id.should.equal lastMessage.id
 
-    it 'generates click actions', inject (dispatcher, Actions)->
+    it 'generates click actions', inject (
+      songDispatcherFactory,
+      Actions
+    )->
       clickedId = 'bad_id'
-      dispatcher.get('song.chat').register Actions.Click, (click)->
+      songDispatcherFactory.getDispatcher('song.chat')
+      .register Actions.Click, (click)->
         clickedId = click.threadID
       sut.clickThread()
       clickedId.should.equal 't_1'

@@ -1,13 +1,13 @@
 class ThreadItemController
   constructor: (dispatcher, @Actions, $err)->
-    @dispatcher = dispatcher.get('song.chat')
+    @dispatcher = dispatcher.getDispatcher('song.chat')
     @lastMessage = @thread.lastMessage
 
   clickThread: ->
     @dispatcher.dispatch(new @Actions.Click(@key))
 
 ThreadItemController.$inject = [
-  'dispatcher'
+  'songDispatcherFactory'
   'Actions'
   '$exceptionHandler'
 ]
@@ -27,7 +27,7 @@ ThreadItemDirective.factory = ->
   new ThreadItemDirective
 
 angular.module('song.chat.thread.item.directive', [
-  'song.dispatcher'
+  'songDispatcher'
   'song.chat.actions'
   'chat.thread.item.template'
 ])

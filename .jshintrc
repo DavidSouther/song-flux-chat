@@ -14,6 +14,7 @@
     "angular": true,
     "__dirname": true,
     "module": true,
-    "require": true
+    "require": true,
+    "console": true
   }
 }

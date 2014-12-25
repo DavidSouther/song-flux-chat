@@ -1,12 +1,12 @@
 angular.module('song.chat.message.service', [
-  'song.dispatcher',
+  'songDispatcher',
   'song.chat.actions',
   'song.chat.thread.service'
 ]).factory('MessageStore', MessageStoreFactory);
 
 MessageStoreFactory.$inject = [
   '$http',
-  'dispatcher',
+  'songDispatcherFactory',
   'ThreadStore',
   'Actions',
   '$log'
@@ -20,7 +20,7 @@ function MessageStoreFactory(
 ){
   function MessageStore(){
     this.messages = [];
-    this.dispatcher = dispatcher.get('song.chat');
+    this.dispatcher = dispatcher.getDispatcher('song.chat');
 
     this._load = function(){return $http.get('/messages');};
 

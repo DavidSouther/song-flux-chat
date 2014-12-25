@@ -1,4 +1,3 @@
-
 describe 'Chat Messages', ->
   sut = null
   beforeEach module(
