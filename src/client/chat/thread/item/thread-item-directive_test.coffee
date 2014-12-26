@@ -38,7 +38,7 @@ describe 'ThreadItemDirective', ->
       Actions
     )->
       clickedId = 'bad_id'
-      songDispatcherFactory.getDispatcher('song.chat')
+      songDispatcherFactory.get('song.chat')
       .register Actions.Click, (click)->
         clickedId = click.threadID
       sut.clickThread()

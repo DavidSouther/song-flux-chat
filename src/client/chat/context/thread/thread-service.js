@@ -13,7 +13,7 @@ function ThreadStoreFactory(dispatcher, Actions, $log){
   var _threads = {};
 
   function ThreadStore(){
-    this.dispatcher = dispatcher.getDispatcher('song.chat');
+    this.dispatcher = dispatcher.get('song.chat');
     this.dispatcher.register( Actions.Receive, this.addMessages.bind(this) );
     this.dispatcher.register( Actions.Click, this.click.bind(this) );
   }

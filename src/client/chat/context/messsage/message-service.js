@@ -20,7 +20,7 @@ function MessageStoreFactory(
 ){
   function MessageStore(){
     this.messages = [];
-    this.dispatcher = dispatcher.getDispatcher('song.chat');
+    this.dispatcher = dispatcher.get('song.chat');
 
     this._load = function(){return $http.get('/messages');};
 
@@ -71,6 +71,8 @@ function MessageStoreFactory(
       }
     }
   };
+
+
 
   return new MessageStore();
 }

@@ -1,6 +1,6 @@
 class ThreadItemController
   constructor: (dispatcher, @Actions, $err)->
-    @dispatcher = dispatcher.getDispatcher('song.chat')
+    @dispatcher = dispatcher.get('song.chat')
     @lastMessage = @thread.lastMessage
 
   clickThread: ->
